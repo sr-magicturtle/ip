@@ -12,20 +12,21 @@ public class Roberto {
         String userChoice = scanner.nextLine();
 
         while (!userChoice.equals("bye")) {
+
             if (userChoice.equals("list")) {
                 printListWithNumber(listOfTasks, numOfTasks);
             }
+
             else if (userChoice.startsWith("todo")) {
-                String description = userChoice.substring(5);
-                listOfTasks[numOfTasks] = new ToDo(description);
+                Task newTask = new ToDo(userChoice);
+                listOfTasks[numOfTasks] = newTask;
                 numOfTasks++;
                 System.out.println("Added a todo task!\nYou now have " + numOfTasks + " tasks in your list");
             }
+
             else if (userChoice.startsWith("deadline")) {
-                String[] input = userChoice.split("/");
-                input[0] = input[0].substring(9);
-                input[1] = input[1].substring(3);
-                listOfTasks[numOfTasks] = new Deadline(input[0], input[1]);
+                Task newTask = new Deadline(userChoice);
+                listOfTasks[numOfTasks] = newTask;
                 numOfTasks++;
                 System.out.println("Added a deadline task!\nYou now have " + numOfTasks + " tasks in your list");
             }

@@ -1,9 +1,9 @@
 public class Deadline extends Task {
     private String endTime;
 
-    public Deadline(String description, String endTime) {
-        super(description);
-        this.endTime = endTime;
+    public Deadline(String userChoice) {
+        super(userChoice.split("/")[0].substring(9));
+        this.endTime = userChoice.split("/")[1].substring(3);
     }
 
     @Override
