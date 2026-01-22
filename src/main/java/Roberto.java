@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.List;
 
 public class Roberto {
     public static void main(String[] args) {
@@ -14,11 +15,30 @@ public class Roberto {
             if (userChoice.equals("list")) {
                 printListWithNumber(listOfTasks, numOfTasks);
             }
+            else if (userChoice.startsWith("todo")) {
+                String description = userChoice.substring(5);
+                listOfTasks[numOfTasks] = new ToDo(description);
+                numOfTasks++;
+                System.out.println("Added a todo task!");
+            }
+            else if (userChoice.startsWith("deadline")) {
+                String[] input = userChoice.split("/");
+                input[0] = input[0].substring(9);
+                input[1] = input[1].substring(3);
+                if (input.length == 2) {
+                    listOfTasks[numOfTasks] = new Deadline(input[0], input[1]);
+                }
+                else {
+                    listOfTasks[numOfTasks] = new Deadline(input[0], input[1], input[2]);
+                }
+                numOfTasks++;
+                System.out.println("Added a deadline task!");
+            }
             else if (userChoice.startsWith("mark")) {
                 int taskNumber = (userChoice.charAt(5) - '0') - 1;
                 listOfTasks[taskNumber].mark();
                 System.out.println("This task is marked done!\n" +
-                        "[X] " + listOfTasks[taskNumber].toString()
+                        listOfTasks[taskNumber].toString()
                 );
             }
             else if (userChoice.startsWith("unmark")) {
@@ -53,8 +73,7 @@ public class Roberto {
     private static void printListWithNumber(Task[] list, int listLength) {
         System.out.println("GET TO WORK!!");
         for (int i=0; i < listLength; i++) {
-            char taskDone = list[i].getStatus() ? 'X' : ' ';
-            System.out.println( (i+1) + ". [" + taskDone + "] " + list[i]);
+            System.out.println( (i+1) + ". " + list[i].toString());
         }
     }
 }
