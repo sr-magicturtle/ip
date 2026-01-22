@@ -4,23 +4,36 @@ public class Roberto {
     public static void main(String[] args) {
         helloGreeting();
 
-        String[] listTasks = new String[100];
-        int numOfListElements = 0;
+        Task[] listOfTasks = new Task[100];
+        int numOfTasks = 0;
 
         Scanner scanner = new Scanner(System.in);
         String userChoice = scanner.nextLine();
 
         while (!userChoice.equals("bye")) {
             if (userChoice.equals("list")) {
-                printListWithNumber(listTasks, numOfListElements);
-                userChoice = scanner.nextLine();
+                printListWithNumber(listOfTasks, numOfTasks);
+            }
+            else if (userChoice.startsWith("mark")) {
+                int taskNumber = (userChoice.charAt(5) - '0') - 1;
+                listOfTasks[taskNumber].mark();
+                System.out.println("This task is marked done!\n" +
+                        "[X] " + listOfTasks[taskNumber].toString()
+                );
+            }
+            else if (userChoice.startsWith("unmark")) {
+                int taskNumber = (userChoice.charAt(7) - '0') - 1;
+                listOfTasks[taskNumber].unmark();
+                System.out.println("this task is marked undone.\n" +
+                        "[ ] " + listOfTasks[taskNumber].toString()
+                );
             }
             else {
                 System.out.println("added: " + userChoice);
-                listTasks[numOfListElements] = userChoice;
-                numOfListElements++;
-                userChoice = scanner.nextLine();
+                listOfTasks[numOfTasks] = new Task(userChoice);
+                numOfTasks++;
             }
+            userChoice = scanner.nextLine();
         }
         System.out.println("NOOOOO DONT GO.... okay see u soon!");
     }
@@ -37,9 +50,11 @@ public class Roberto {
         System.out.println("What can I do for you?");
     }
 
-    private static void printListWithNumber(String[] list, int listLength) {
+    private static void printListWithNumber(Task[] list, int listLength) {
+        System.out.println("GET TO WORK!!");
         for (int i=0; i < listLength; i++) {
-            System.out.println( (i+1) + ". " + list[i]);
+            char taskDone = list[i].getStatus() ? 'X' : ' ';
+            System.out.println( (i+1) + ". [" + taskDone + "] " + list[i]);
         }
     }
 }
