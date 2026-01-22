@@ -25,14 +25,18 @@ public class Roberto {
                 String[] input = userChoice.split("/");
                 input[0] = input[0].substring(9);
                 input[1] = input[1].substring(3);
-                if (input.length == 2) {
-                    listOfTasks[numOfTasks] = new Deadline(input[0], input[1]);
-                }
-                else {
-                    listOfTasks[numOfTasks] = new Deadline(input[0], input[1], input[2]);
-                }
+                listOfTasks[numOfTasks] = new Deadline(input[0], input[1]);
                 numOfTasks++;
                 System.out.println("Added a deadline task!");
+            }
+            else if (userChoice.startsWith("event")) {
+                String[] input = userChoice.split("/");
+                input[0] = input[0].substring(6);
+                input[1] = input[1].substring(5);
+                input[2] = input[2].substring(3);
+                listOfTasks[numOfTasks] = new Event(input[0], input[1], input[2]);
+                numOfTasks++;
+                System.out.println("Added an event task!");
             }
             else if (userChoice.startsWith("mark")) {
                 int taskNumber = (userChoice.charAt(5) - '0') - 1;
