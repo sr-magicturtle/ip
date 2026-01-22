@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Roberto {
-    private static Task[] listOfTasks = new Task[100];
+    private static ArrayList<Task> listOfTasks = new ArrayList<>();
     private static int numOfTasks = 0;
 
     public static void main(String[] args) {
@@ -17,9 +18,9 @@ public class Roberto {
             } catch (UnknownCommandException e) {
                 System.out.println(e.getMessage());
             }
-
             userChoice = scanner.nextLine();
         }
+
         System.out.println("NOOOOO DONT GO.... okay see u soon!");
     }
 
@@ -35,10 +36,10 @@ public class Roberto {
         System.out.println("What can I do for you?");
     }
 
-    private static void printListWithNumber(Task[] list, int listLength) {
+    private static void printListWithNumber(ArrayList<Task> list, int listLength) {
         System.out.println("GET TO WORK!!");
         for (int i=0; i < listLength; i++) {
-            System.out.println( (i+1) + ". " + list[i].toString());
+            System.out.println( (i+1) + ". " + list.get(i).toString());
         }
     }
 
@@ -50,7 +51,7 @@ public class Roberto {
         else if (userChoice.startsWith("todo")) {
             try {
                 Task newTask = new ToDo(userChoice);
-                listOfTasks[numOfTasks] = newTask;
+                listOfTasks.add(newTask);
                 numOfTasks++;
                 System.out.println("Added a todo task!\nYou now have " + numOfTasks + " tasks in your list");
             } catch (StringIndexOutOfBoundsException e) {
@@ -60,7 +61,7 @@ public class Roberto {
 
         else if (userChoice.startsWith("deadline")) {
             Task newTask = new Deadline(userChoice);
-            listOfTasks[numOfTasks] = newTask;
+            listOfTasks.add(newTask);
             numOfTasks++;
             System.out.println("Added a deadline task!\nYou now have " + numOfTasks + " tasks in your list");
         }
@@ -70,26 +71,37 @@ public class Roberto {
             input[0] = input[0].substring(6);
             input[1] = input[1].substring(5);
             input[2] = input[2].substring(3);
-            listOfTasks[numOfTasks] = new Event(input[0], input[1], input[2]);
+            listOfTasks.add(new Event(input[0], input[1], input[2]));
             numOfTasks++;
             System.out.println("Added an event task!\nYou now have " + numOfTasks + " tasks in your list");
         }
         else if (userChoice.startsWith("mark")) {
             int taskNumber = (userChoice.charAt(5) - '0') - 1;
-            listOfTasks[taskNumber].mark();
+            listOfTasks.get(taskNumber).mark();
             System.out.println("This task is marked done!\n" +
-                    listOfTasks[taskNumber].toString()
+                    listOfTasks.get(taskNumber).toString()
             );
         }
         else if (userChoice.startsWith("unmark")) {
             int taskNumber = (userChoice.charAt(7) - '0') - 1;
-            listOfTasks[taskNumber].unmark();
+            listOfTasks.get(taskNumber).unmark();
             System.out.println("this task is marked undone.\n" +
-                    listOfTasks[taskNumber].toString()
+                    listOfTasks.get(taskNumber).toString()
+            );
+        }
+        else if (userChoice.startsWith("delete")) {
+            int taskNumber = (userChoice.charAt(7) - '0') - 1;
+            String removedTask = listOfTasks.get(taskNumber).toString();
+            listOfTasks.remove(taskNumber);
+            numOfTasks--;
+            System.out.println("this task is removed.\n" +
+                    removedTask +
+                    "\nYou have " + numOfTasks + " tasks left in the list"
             );
         }
         else {
             throw new UnknownCommandException("I dont understand that command");
         }
     }
+
 }
