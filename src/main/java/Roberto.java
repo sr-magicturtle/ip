@@ -19,7 +19,7 @@ public class Roberto {
                 String description = userChoice.substring(5);
                 listOfTasks[numOfTasks] = new ToDo(description);
                 numOfTasks++;
-                System.out.println("Added a todo task!");
+                System.out.println("Added a todo task!\nYou now have " + numOfTasks + " tasks in your list");
             }
             else if (userChoice.startsWith("deadline")) {
                 String[] input = userChoice.split("/");
@@ -27,7 +27,7 @@ public class Roberto {
                 input[1] = input[1].substring(3);
                 listOfTasks[numOfTasks] = new Deadline(input[0], input[1]);
                 numOfTasks++;
-                System.out.println("Added a deadline task!");
+                System.out.println("Added a deadline task!\nYou now have " + numOfTasks + " tasks in your list");
             }
             else if (userChoice.startsWith("event")) {
                 String[] input = userChoice.split("/");
@@ -36,7 +36,7 @@ public class Roberto {
                 input[2] = input[2].substring(3);
                 listOfTasks[numOfTasks] = new Event(input[0], input[1], input[2]);
                 numOfTasks++;
-                System.out.println("Added an event task!");
+                System.out.println("Added an event task!\nYou now have " + numOfTasks + " tasks in your list");
             }
             else if (userChoice.startsWith("mark")) {
                 int taskNumber = (userChoice.charAt(5) - '0') - 1;
@@ -49,7 +49,7 @@ public class Roberto {
                 int taskNumber = (userChoice.charAt(7) - '0') - 1;
                 listOfTasks[taskNumber].unmark();
                 System.out.println("this task is marked undone.\n" +
-                        "[ ] " + listOfTasks[taskNumber].toString()
+                        listOfTasks[taskNumber].toString()
                 );
             }
             else {
