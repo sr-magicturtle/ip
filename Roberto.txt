@@ -1,0 +1,4 @@
+[T] [ ] read book
+[D] [ ] read book  | by: Aug 6th 2359
+[E] [ ] read book  | Aug 24th 12pm  - Aug 25th 1pm
+
