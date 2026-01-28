@@ -24,8 +24,8 @@ public class Roberto {
 
         // userChoice must follow one of three formats:
         // todo read book
-        // deadline read book /by Aug 6th
-        // event read book /from Aug 6th 12pm /to Aug 6th 4pm
+        // deadline read book /by yyyy-mmm-dd
+        // event read book /from yyyy-mmm-dd /to yyyy-mmm-dd
         String userChoice = scanner.nextLine();
 
         while (!userChoice.equals("bye")) {
@@ -73,7 +73,7 @@ public class Roberto {
                 Task newTask = new ToDo(userChoice);
                 listOfTasks.add(newTask);
 
-                String taskDescription = newTask.toString() + "\n";
+                String taskDescription = newTask.toString();
                 writeToFile(taskDescription);
                 numOfTasks++;
 
@@ -91,7 +91,7 @@ public class Roberto {
                 Task newTask = new Deadline(userChoice);
                 listOfTasks.add(newTask);
 
-                String taskDescription = newTask.toString() + "\n";
+                String taskDescription = newTask.toString();
                 writeToFile(taskDescription);
                 numOfTasks++;
 
@@ -107,7 +107,7 @@ public class Roberto {
                 Task newTask = new Event(userChoice);
                 listOfTasks.add(newTask);
 
-                String taskDescription = newTask.toString() + "\n";
+                String taskDescription = newTask.toString();
                 writeToFile(taskDescription);
                 numOfTasks++;
 
@@ -188,6 +188,7 @@ public class Roberto {
     private static void writeToFile(String textToAdd) throws IOException {
         FileWriter fw = new FileWriter(FILE_PATH, true);
         fw.write(textToAdd);
+        fw.write(System.lineSeparator());
         fw.close();
     }
 
