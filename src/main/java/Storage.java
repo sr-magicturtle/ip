@@ -45,7 +45,7 @@ public class Storage {
         boolean isDone = line.contains("[1]");
 
         if (line.contains("[T]")) {
-            result = new ToDo("todo " + line.substring(7));
+            result = new ToDo("todo " + line.substring(8));
         } else if (line.contains("[D]")) {
             System.out.println("deadline");
             line = line.substring(8);
