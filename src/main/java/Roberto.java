@@ -2,18 +2,28 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Starting point for Roberto, a task manager
+ * Add and delete tasks, as well as mark them when done
+ */
 public class Roberto {
+    private static final String FILE_PATH = "Roberto.txt";
     private static ArrayList<String> listOfTasksInFile = new ArrayList<>();
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
     private static int numOfTasks = 0;
-    private static final String FILE_PATH = "Roberto.txt";
 
+    /**
+     * Runs Roberto the task manager, until user enters the command "bye".
+     * @param args not used.
+     */
     public static void main(String[] args) {
         helloGreeting();
 
@@ -24,8 +34,8 @@ public class Roberto {
 
         // userChoice must follow one of three formats:
         // todo read book
-        // deadline read book /by yyyy-mmm-dd
-        // event read book /from yyyy-mmm-dd /to yyyy-mmm-dd
+        // deadline read book /by yyyy-mm-dd in numerals
+        // event read book /from yyyy-mm-dd /to yyyy-mm-dd in numerals
         String userChoice = scanner.nextLine();
 
         while (!userChoice.equals("bye")) {
@@ -55,8 +65,8 @@ public class Roberto {
 
     private static void printListWithNumber(ArrayList<String> list) {
         System.out.println("GET TO WORK!!");
-        for (int i=0; i < list.size(); i++) {
-            System.out.println( (i+1) + ". " + list.get(i));
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println((i + 1) + ". " + list.get(i));
         }
     }
 
@@ -66,9 +76,7 @@ public class Roberto {
         if (userChoice.equals("list")) {
             listOfTasksInFile = readFile();
             printListWithNumber(listOfTasksInFile);
-        }
-
-        else if (userChoice.startsWith("todo")) {
+        } else if (userChoice.startsWith("todo")) {
             try {
                 Task newTask = new ToDo(userChoice);
                 listOfTasks.add(newTask);
@@ -84,9 +92,7 @@ public class Roberto {
             } catch (IOException e) {
                 System.out.println("Unable to write to file");
             }
-        }
-
-        else if (userChoice.startsWith("deadline")) {
+        } else if (userChoice.startsWith("deadline")) {
             try {
                 Task newTask = new Deadline(userChoice);
                 listOfTasks.add(newTask);
@@ -100,9 +106,7 @@ public class Roberto {
             } catch (IOException e) {
                 System.out.println("Unable to write to file");
             }
-        }
-
-        else if (userChoice.startsWith("event")) {
+        } else if (userChoice.startsWith("event")) {
             try {
                 Task newTask = new Event(userChoice);
                 listOfTasks.add(newTask);
@@ -116,9 +120,7 @@ public class Roberto {
             } catch (IOException e) {
                 System.out.println("Unable to write to file");
             }
-        }
-
-        else if (userChoice.startsWith("mark")) {
+        } else if (userChoice.startsWith("mark")) {
             int taskNumber = (userChoice.charAt(5) - '0') - 1;
 
             try {
@@ -133,9 +135,7 @@ public class Roberto {
             } catch (IOException e) {
                 System.out.println("Unable to mark task");
             }
-        }
-
-        else if (userChoice.startsWith("unmark")) {
+        } else if (userChoice.startsWith("unmark")) {
             int taskNumber = (userChoice.charAt(7) - '0') - 1;
 
             try {
@@ -150,12 +150,10 @@ public class Roberto {
             } catch (IOException e) {
                 System.out.println("Unable to mark task");
             }
-        }
-
-        else if (userChoice.startsWith("delete")) {
+        } else if (userChoice.startsWith("delete")) {
             int taskNumber = (userChoice.charAt(7) - '0') - 1;
             String removedTask = listOfTasksInFile.get(taskNumber);
-            listOfTasks.remove(taskNumber);
+            // listOfTasks.remove(taskNumber);
             
             removeLineInFile(taskNumber);
             numOfTasks--;
@@ -166,8 +164,7 @@ public class Roberto {
                     numOfTasks + 
                     " tasks left in the list"
             );
-        }
-        else {
+        } else {
             throw new UnknownCommandException("I dont understand that command");
         }
     }
@@ -218,12 +215,12 @@ public class Roberto {
         Files.write(path, allLines);
     }
 
-    private static void removeLineInFile(int lineNum) {
+    private static void removeLineInFile(int taskNumber) {
         Path path = Paths.get(FILE_PATH);
 
         try {
             ArrayList<String> allLines = readFile();
-            allLines.remove(lineNum - 1);
+            allLines.remove(taskNumber);
             Files.write(path,allLines);
         } catch (IOException e) {
             System.out.println("Unable to remove line");
