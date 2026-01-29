@@ -19,106 +19,79 @@ public class Roberto {
     private static ArrayList<String> listOfTasksInFile = new ArrayList<>();
     private static ArrayList<Task> listOfTasks = new ArrayList<>();
     private static int numOfTasks = 0;
+    private static Ui ui = new Ui();
 
     /**
      * Runs Roberto the task manager, until user enters the command "bye".
      * @param args not used.
      */
     public static void main(String[] args) {
-        helloGreeting();
+        ui.showWelcome();
 
         listOfTasksInFile = readFile();
         numOfTasks = listOfTasksInFile.size();
-
-        Scanner scanner = new Scanner(System.in);
 
         // userChoice must follow one of three formats:
         // todo read book
         // deadline read book /by yyyy-mm-dd in numerals
         // event read book /from yyyy-mm-dd /to yyyy-mm-dd in numerals
-        String userChoice = scanner.nextLine();
+        String userChoice = ui.readCommand();
 
         while (!userChoice.equals("bye")) {
             try {
                 handleInput(userChoice);
             } catch (UnknownCommandException e) {
-                System.out.println(e.getMessage());
+                ui.giveError(e.getMessage());
             }
-            userChoice = scanner.nextLine();
+            userChoice = ui.readCommand();
         }
-
-        System.out.println("NOOOOO DONT GO.... okay see u soon!");
-    }
-
-    private static void helloGreeting() {
-        String logo = "__________ ________ __________________________________________________   \n" +
-                "\\______   \\\\_____  \\\\______   \\_   _____/\\______   \\__    ___/\\_____  \\  \n" +
-                " |       _/ /   |   \\|    |  _/|    __)_  |       _/ |    |    /   |   \\ \n" +
-                " |    |   \\/    |    \\    |   \\|        \\ |    |   \\ |    |   /    |    \\\n" +
-                " |____|_  /\\_______  /______  /_______  / |____|_  / |____|   \\_______  /\n" +
-                "        \\/         \\/       \\/        \\/         \\/                   \\/ ";
-        System.out.println("Hello! I'm ROBERTO\n" +
-                logo +
-                "\nWhat can I do for you?"
-        );
-    }
-
-    private static void printListWithNumber(ArrayList<String> list) {
-        System.out.println("GET TO WORK!!");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println((i + 1) + ". " + list.get(i));
-        }
+        ui.sayBye();
     }
 
     private static void handleInput(String userChoice) throws UnknownCommandException {
-        File file = new File(FILE_PATH);
-
         if (userChoice.equals("list")) {
             listOfTasksInFile = readFile();
-            printListWithNumber(listOfTasksInFile);
+            ui.giveTaskList(listOfTasksInFile);
         } else if (userChoice.startsWith("todo")) {
             try {
                 Task newTask = new ToDo(userChoice);
-                listOfTasks.add(newTask);
-
+                // listOfTasks.add(newTask);
                 String taskDescription = newTask.toString();
                 writeToFile(taskDescription);
                 numOfTasks++;
 
-                System.out.println("Added a todo task!\nYou now have " + numOfTasks + " tasks in your list");
+                ui.taskAdded(taskDescription, listOfTasksInFile.size());
 
             } catch (StringIndexOutOfBoundsException e) {
-                System.out.println("You must add a task after typing todo!");
+                ui.giveError("You must add a task after typing todo!");
             } catch (IOException e) {
-                System.out.println("Unable to write to file");
+                ui.giveError("Unable to write to file");
             }
         } else if (userChoice.startsWith("deadline")) {
             try {
                 Task newTask = new Deadline(userChoice);
-                listOfTasks.add(newTask);
-
+                // listOfTasks.add(newTask);
                 String taskDescription = newTask.toString();
                 writeToFile(taskDescription);
                 numOfTasks++;
 
-                System.out.println("Added a deadline task!\nYou now have " + numOfTasks + " tasks in your list");
+                ui.taskAdded(taskDescription, listOfTasksInFile.size());
 
             } catch (IOException e) {
-                System.out.println("Unable to write to file");
+                ui.giveError("Unable to write to file");
             }
         } else if (userChoice.startsWith("event")) {
             try {
                 Task newTask = new Event(userChoice);
-                listOfTasks.add(newTask);
-
+                //listOfTasks.add(newTask);
                 String taskDescription = newTask.toString();
                 writeToFile(taskDescription);
                 numOfTasks++;
 
-                System.out.println("Added an event task!\nYou now have " + numOfTasks + " tasks in your list");
-                
+                ui.taskAdded(taskDescription, listOfTasksInFile.size());
+
             } catch (IOException e) {
-                System.out.println("Unable to write to file");
+                ui.giveError("Unable to write to file");
             }
         } else if (userChoice.startsWith("mark")) {
             int taskNumber = (userChoice.charAt(5) - '0') - 1;
@@ -126,14 +99,12 @@ public class Roberto {
             try {
                 markTaskInFile(taskNumber);
                 // listOfTasks.get(taskNumber).mark();
-                System.out.println("This task is marked done!\n" +
-                        listOfTasksInFile.get(taskNumber)
-                );
+                ui.taskMarked(listOfTasksInFile.get(taskNumber));
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Indexing issue");
+                ui.giveError("Indexing issue");
 
             } catch (IOException e) {
-                System.out.println("Unable to mark task");
+                ui.giveError("Unable to mark task");
             }
         } else if (userChoice.startsWith("unmark")) {
             int taskNumber = (userChoice.charAt(7) - '0') - 1;
@@ -141,14 +112,12 @@ public class Roberto {
             try {
                 unmarkTaskInFile(taskNumber);
                 // listOfTasksInFile.get(taskNumber).mark();
-                System.out.println("this task is marked undone.\n" +
-                        listOfTasksInFile.get(taskNumber)
-                );
+                ui.taskMarked(listOfTasksInFile.get(taskNumber));
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Indexing issue");
+                ui.giveError("Indexing issue");
 
             } catch (IOException e) {
-                System.out.println("Unable to mark task");
+                ui.giveError("Unable to mark task");
             }
         } else if (userChoice.startsWith("delete")) {
             int taskNumber = (userChoice.charAt(7) - '0') - 1;
@@ -156,14 +125,9 @@ public class Roberto {
             // listOfTasks.remove(taskNumber);
             
             removeLineInFile(taskNumber);
-            numOfTasks--;
+            // numOfTasks--;
             
-            System.out.println("this task is removed.\n" +
-                    removedTask +
-                    "\nYou have " + 
-                    numOfTasks + 
-                    " tasks left in the list"
-            );
+            ui.taskRemoved(removedTask, listOfTasksInFile.size());
         } else {
             throw new UnknownCommandException("I dont understand that command");
         }
@@ -177,7 +141,7 @@ public class Roberto {
                 linesOfTasks.add(scanner.nextLine());
             }
         } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
+            ui.showLoadingError();
         }
         return linesOfTasks;
     }
@@ -223,7 +187,7 @@ public class Roberto {
             allLines.remove(taskNumber);
             Files.write(path,allLines);
         } catch (IOException e) {
-            System.out.println("Unable to remove line");
+            ui.giveError("Unable to show line");
         }
 
     }
