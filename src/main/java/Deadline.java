@@ -1,3 +1,4 @@
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -19,7 +20,7 @@ public class Deadline extends Task {
     }
 
     public String dateHandler(String userInputDate) {
-        LocalDate date = LocalDate.parse(userInputDate);
+        LocalDate date = LocalDate.parse(userInputDate, DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 

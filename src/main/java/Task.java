@@ -15,7 +15,6 @@ public class Task {
         this.isDone = false;
     }
 
-    /*
     public boolean getStatus() {
         return isDone;
     }
@@ -27,7 +26,6 @@ public class Task {
     public void unmark() {
         this.isDone = false;
     }
-    */
 
     /**
      * Returns the string representation of a task.
