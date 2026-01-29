@@ -34,32 +34,32 @@ public class Ui {
         System.out.println("NOOOOO DONT GO.... okay see u soon!");
     }
 
-    public void giveTaskList(ArrayList<String> list) {
+    public void giveTaskList(TaskList list) {
         System.out.println("GET TO WORK!!");
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
     }
 
-    public void taskAdded(String taskDescription, int size) {
+    public void taskAdded(Task task, int size) {
         System.out.println("You have added this task:");
-        System.out.println("  " + taskDescription);
+        System.out.println("  " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public void taskRemoved(String taskDescription, int size) {
+    public void taskRemoved(Task task, int size) {
         System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + taskDescription);
+        System.out.println("  " + task);
         System.out.println("Now you have " + size + " tasks in the list.");
     }
 
-    public void taskMarked(String taskDescription) {
+    public void taskMarked(Task task) {
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("  " + taskDescription);
+        System.out.println("  " + task);
     }
 
-    public void taskUnmarked(String taskDescription) {
+    public void taskUnmarked(Task task) {
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("  " + taskDescription);
+        System.out.println("  " + task);
     }
 }
