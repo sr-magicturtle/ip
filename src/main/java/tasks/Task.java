@@ -1,3 +1,5 @@
+package tasks;
+
 /**
  * A basic †ask with a description and a completed status.
  * Subclasses can extend from this class to have more detailed functionalities.

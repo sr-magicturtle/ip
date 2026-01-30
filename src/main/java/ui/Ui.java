@@ -1,5 +1,8 @@
+package ui;
+
+import tasks.TaskList;
+import tasks.Task;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Ui {
     private Scanner scanner;

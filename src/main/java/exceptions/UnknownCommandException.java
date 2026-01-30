@@ -1,3 +1,5 @@
+package exceptions;
+
 /**
  * Represents an exception when user enters a command that is not supported.
  */
