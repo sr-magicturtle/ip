@@ -16,14 +16,14 @@ import java.io.IOException;
 public class Parser {
 
     /**
-     * Parse user's input and execute accordingly.
-     * @param userChoice The command that the user has input.
-     * @param tasks List of tasks to be edited or read.
-     * @param ui Displays output.
-     * @param storage Save changes to file.
-     * @return true if user input is "bye", otherwise return false.
-     * @throws UnknownCommandException Command is not recognised.
-     * @throws IOException Error occurs during storage.
+     * Parses the user input and executes the command.
+     *
+     * @param userChoice User input.
+     * @param tasks      List of tasks.
+     * @param ui         UI handling user interaction.
+     * @param storage    Storage for saving data.
+     * @return true if the program exits, else false.
+     * @throws UnknownCommandException If the command is not recognised.
      */
     public static boolean parse(String userChoice, TaskList tasks, Ui ui, Storage storage) throws UnknownCommandException, IOException {
         if (userChoice.equals("bye")) {

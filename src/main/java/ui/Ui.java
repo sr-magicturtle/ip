@@ -28,7 +28,9 @@ public class Ui {
                 " |    |   \\/    |    \\    |   \\|        \\ |    |   \\ |    |   /    |    \\\n" +
                 " |____|_  /\\_______  /______  /_______  / |____|_  / |____|   \\_______  /\n" +
                 "        \\/         \\/       \\/        \\/         \\/                   \\/ ";
-        System.out.println("Hello! I'm ROBERTO\n" + logo + "\nWhat can I do for you?");
+        System.out.println("Hello! I'm ROBERTO\n"
+                + logo
+                + "\nWhat can I do for you?");
     }
 
     /**

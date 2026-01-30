@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Handles the loading and saving of tasks to a file.
+ */
 public class Storage {
     private final String filePath;
 
@@ -22,12 +25,12 @@ public class Storage {
     }
 
     /**
-     * Load the list of tasks from file.
+     * Load tasks from file.
      * <p>
      * If a file is not found, a new file is created.
      * If a file is found, read the file line by line to create task objects.
      * </p>
-     * @return An ArrayList with Tasks loaded from file.
+     * @return ArrayList of Tasks loaded from file.
      * @throws IOException When a reading or creating file error occurs.
      */
     public ArrayList<Task> load() throws IOException {
@@ -65,6 +68,7 @@ public class Storage {
         }
         fw.close();
     }
+
 
     private Task parseLineToTask(String line) {
         Task result;

@@ -1,7 +1,7 @@
 package exceptions;
 
 /**
- * Represent's a Roberto-specific exception.
+ * Represent a Roberto-specific exception.
  */
 public class RobertoException extends Exception {
     /**

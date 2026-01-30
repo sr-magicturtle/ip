@@ -17,13 +17,24 @@ public class Event extends Task {
      * @param userChoice Represents user's input.
      */
     public Event(String userChoice) {
-        super(userChoice.split("/")[0].substring(6));
-        this.startDate = dateHandler(userChoice.split("/")[1].substring(5).trim());
-        this.endDate = dateHandler(userChoice.split("/")[2].substring(3).trim());
+        super(userChoice
+                .split("/")[0]
+                .substring(6));
+        this.startDate = dateHandler(
+                userChoice.split("/")[1]
+                .substring(5)
+                .trim());
+        this.endDate = dateHandler(
+                userChoice
+                .split("/")[2]
+                .substring(3)
+                .trim());
     }
 
     String dateHandler(String userInputDate) {
-        LocalDate date = LocalDate.parse(userInputDate, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        LocalDate date = LocalDate.parse(
+                userInputDate,
+                DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
