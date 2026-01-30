@@ -1,3 +1,5 @@
+package main;
+
 import parser.Parser;
 import tasks.TaskList;
 import storage.Storage;
@@ -12,11 +14,18 @@ import java.io.IOException;
  */
 public class Roberto {
     private static final String FILE_PATH = "Roberto.txt";
-    private static Ui ui = new Ui();
+    private static final Ui ui = new Ui();
     private static TaskList tasks;
-    private static Storage storage = new Storage(FILE_PATH);
+    private static final Storage storage = new Storage(FILE_PATH);
 
-    public Roberto(String filePath) {
+    /**
+     * Constructs Roberto app.
+     * <p>
+     * Loads a file containing the task list from hard drive.
+     * If file is not found, show a loading error and create new list.
+     * </p>
+     */
+    public Roberto() {
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
@@ -25,6 +34,12 @@ public class Roberto {
         }
     }
 
+    /**
+     * Start the app.
+     * <p>
+     * Displays welcome message and reads user commands.
+     * </p>
+     */
     public void run() {
         ui.showWelcome();
         boolean isFinish = false;
@@ -47,10 +62,10 @@ public class Roberto {
     }
 
     /**
-     * Runs Roberto the task manager, until user enters the command "bye".
+     * Entry point of the app.
      * @param args not used.
      */
     public static void main(String[] args) {
-        new Roberto(FILE_PATH).run();
+        new Roberto().run();
     }
 }

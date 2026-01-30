@@ -17,14 +17,24 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Gets status of task
+     * @return Whether the task is completed.
+     */
     public boolean getStatus() {
         return isDone;
     }
 
+    /**
+     * Mark task as completed.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Marks task as uncompleted.
+     */
     public void unmark() {
         this.isDone = false;
     }

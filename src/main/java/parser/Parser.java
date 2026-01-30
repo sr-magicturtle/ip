@@ -10,8 +10,21 @@ import tasks.Event;
 import exceptions.UnknownCommandException;
 import java.io.IOException;
 
+/**
+ * Handles execution of user's input.
+ */
 public class Parser {
 
+    /**
+     * Parse user's input and execute accordingly.
+     * @param userChoice The command that the user has input.
+     * @param tasks List of tasks to be edited or read.
+     * @param ui Displays output.
+     * @param storage Save changes to file.
+     * @return true if user input is "bye", otherwise return false.
+     * @throws UnknownCommandException Command is not recognised.
+     * @throws IOException Error occurs during storage.
+     */
     public static boolean parse(String userChoice, TaskList tasks, Ui ui, Storage storage) throws UnknownCommandException, IOException {
         if (userChoice.equals("bye")) {
             ui.sayBye();
