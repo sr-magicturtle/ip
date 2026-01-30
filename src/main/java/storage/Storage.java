@@ -11,12 +11,25 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private String filePath;
+    private final String filePath;
 
+    /**
+     * Constructs a Storage object.
+     * @param filePath Specifies the path to the file containing tasks.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Load the list of tasks from file.
+     * <p>
+     * If a file is not found, a new file is created.
+     * If a file is found, read the file line by line to create task objects.
+     * </p>
+     * @return An ArrayList with Tasks loaded from file.
+     * @throws IOException When a reading or creating file error occurs.
+     */
     public ArrayList<Task> load() throws IOException {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(this.filePath);
@@ -36,6 +49,14 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves ArrayList of Tasks to file.
+     * <p>
+     * Overwrites the file content.
+     * </p>
+     * @param tasks The ArrayList of Tasks to save to the file.
+     * @throws IOException If an error occurs when writing to file.
+     */
     public void save(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(filePath);
         for (int i = 0; i < tasks.size(); i++) {
