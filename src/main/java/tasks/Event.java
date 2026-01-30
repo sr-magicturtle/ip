@@ -13,7 +13,7 @@ public class Event extends Task {
 
     /**
      * Constructs an Event task through user's input command.
-     * Expects date to be entered in <yyyy-mm-dd> numerical format.
+     * Expects date to be entered in <MMM dd yyyy> numerical format.
      * @param userChoice Represents user's input.
      */
     public Event(String userChoice) {
@@ -22,7 +22,7 @@ public class Event extends Task {
         this.endDate = dateHandler(userChoice.split("/")[2].substring(3).trim());
     }
 
-    private String dateHandler(String userInputDate) {
+    String dateHandler(String userInputDate) {
         LocalDate date = LocalDate.parse(userInputDate, DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }

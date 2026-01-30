@@ -12,7 +12,7 @@ public class Deadline extends Task {
 
     /**
      * Constructs a Deadline task through user's input command.
-     * Expects date to be entered in <yyyy-mm-dd> numerical format.
+     * Expects date to be entered in <MMM dd yyyy> numerical format.
      * @param userChoice Represents user's input.
      */
     public Deadline(String userChoice) {
