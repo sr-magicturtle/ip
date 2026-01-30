@@ -77,5 +77,23 @@ public class Storage {
         return result;
     }
 
+    public ArrayList<Task> findInFile(String keyword) throws IOException {
+        ArrayList<Task> tasksWithKeyword = new ArrayList<>();
+        File file = new File(this.filePath);
+
+        if (!file.exists()) {
+            return tasksWithKeyword;
+        }
+
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (line.contains(keyword)) {
+                Task newTask = parseLineToTask(line);
+                tasksWithKeyword.add(newTask);
+            }
+        }
+        return tasksWithKeyword;
+    }
 
 }

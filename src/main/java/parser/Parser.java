@@ -9,6 +9,7 @@ import tasks.Deadline;
 import tasks.Event;
 import exceptions.UnknownCommandException;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Parser {
 
@@ -84,6 +85,12 @@ public class Parser {
             } catch (IOException e) {
                 ui.giveError("Unable to delete task");
             }
+        } else if (userChoice.startsWith("find")) {
+            String keyword = userChoice
+                    .substring(5)
+                    .trim();
+            ArrayList<Task> tasksWithKeyword = storage.findInFile(keyword);
+            ui.showSpecificTasks(tasksWithKeyword);
         } else {
             throw new UnknownCommandException("I dont understand that command");
         }
