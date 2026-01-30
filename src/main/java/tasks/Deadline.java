@@ -16,12 +16,18 @@ public class Deadline extends Task {
      * @param userChoice Represents user's input.
      */
     public Deadline(String userChoice) {
-        super(userChoice.split("/")[0].substring(9));
-        this.endDate = dateHandler(userChoice.split("/")[1].substring(3).trim());
+        super(userChoice
+                .split("/")[0]
+                .substring(9));
+        this.endDate = dateHandler(userChoice
+                .split("/")[1]
+                .substring(3).trim());
     }
 
     public String dateHandler(String userInputDate) {
-        LocalDate date = LocalDate.parse(userInputDate, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        LocalDate date = LocalDate.parse(
+                userInputDate,
+                DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
