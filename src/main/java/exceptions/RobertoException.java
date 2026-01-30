@@ -1,3 +1,5 @@
+package exceptions;
+
 /**
  * Represent's a Roberto-specific exception.
  */
