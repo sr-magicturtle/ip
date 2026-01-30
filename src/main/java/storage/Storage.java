@@ -48,7 +48,7 @@ public class Storage {
     private Task parseLineToTask(String line) {
         Task result;
 
-        boolean isDone = line.contains("[1]");
+        boolean isDone = line.contains("[X]");
 
         if (line.contains("[T]")) {
             result = new ToDo("todo " + line.substring(8));

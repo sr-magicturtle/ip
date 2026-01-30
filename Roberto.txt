@@ -1,8 +1,8 @@
-[E] [ ] read book      | Apr 01 2003 - Apr 02 2003
+[E] [ ] read book       | Apr 01 2003 - Apr 02 2003
 [T] [ ] write book
-[D] [ ] write book      | Jan 26 2026
-[E] [ ] write book      | Jan 26 2026 - Feb 26 2026
-[T] [X] walk
-[D] [ ] walk   | Aug 26 2025
-[E] [ ] walk   | Aug 26 2025 - Aug 26 2026
+[D] [ ] write book       | Jan 26 2026
+[E] [ ] write book       | Jan 26 2026 - Feb 26 2026
+[T] [ ] walk
+[D] [ ] walk    | Aug 26 2025
+[E] [ ] walk    | Aug 26 2025 - Aug 26 2026
 [T] [X] run
