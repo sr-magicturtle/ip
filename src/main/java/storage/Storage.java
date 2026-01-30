@@ -53,14 +53,12 @@ public class Storage {
         if (line.contains("[T]")) {
             result = new ToDo("todo " + line.substring(8));
         } else if (line.contains("[D]")) {
-            System.out.println("deadline");
             line = line.substring(8);
             String description = line.split("\\|")[0];
             String startDate = line.split("\\|")[1];
             String originalInput = "deadline " + description + "/by " + startDate;
             result = new Deadline(originalInput);
         } else if (line.contains("[E]")) {
-            System.out.println("event");
             line = line.substring(8);
             String description = line.split("\\|")[0];
 
