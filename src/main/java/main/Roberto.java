@@ -7,25 +7,17 @@ import ui.Ui;
 import exceptions.UnknownCommandException;
 import java.io.IOException;
 
-
 /**
- * Starting point for Roberto, a task manager
- * Add and delete tasks, as well as mark them when done
+ * Represents Roberto Task Manager.
  */
 public class Roberto {
-    private static final String FILE_PATH = "Roberto.txt";
-    private static final Ui ui = new Ui();
-    private static TaskList tasks;
-    private static final Storage storage = new Storage(FILE_PATH);
+    private static final String FILEPATH = "Roberto.txt";
+    private Ui ui = new Ui();
+    private TaskList tasks;
+    private Storage storage;
 
-    /**
-     * Constructs Roberto app.
-     * <p>
-     * Loads a file containing the task list from hard drive.
-     * If file is not found, show a loading error and create new list.
-     * </p>
-     */
-    public Roberto() {
+    public Roberto(String filePath) {
+        storage = new Storage(filePath);
         try {
             tasks = new TaskList(storage.load());
         } catch (IOException e) {
@@ -35,20 +27,22 @@ public class Roberto {
     }
 
     /**
-     * Start the app.
-     * <p>
-     * Displays welcome message and reads user commands.
-     * </p>
+     * Generates a response for user's input.
      */
+    public String getResponse(String input) {
+        try {
+            return Parser.parseForGui(input, tasks, storage);
+        } catch (UnknownCommandException e) {
+            return "OOPS!!! " + e.getMessage();
+        } catch (IOException e) {
+            return "Unable to save to file: " + e.getMessage();
+        }
+    }
+
+    // Keep the run() method for CLI mode
     public void run() {
         ui.showWelcome();
         boolean isFinish = false;
-
-        // userChoice must follow one of three formats:
-        // todo read book
-        // deadline read book /yyyy-mm-dd in numerals
-        // event read book /from yyyy-mm-dd /to yyyy-mm-dd in numerals
-
         while (!isFinish) {
             try {
                 String userChoice = ui.readCommand();
@@ -56,16 +50,12 @@ public class Roberto {
             } catch (UnknownCommandException e) {
                 ui.giveError(e.getMessage());
             } catch (IOException e) {
-                ui.giveError("Unable to save to file" + e.getMessage());
+                ui.giveError("Unable to save to file: " + e.getMessage());
             }
         }
     }
 
-    /**
-     * Entry point of the app.
-     * @param args not used.
-     */
     public static void main(String[] args) {
-        new Roberto().run();
+        new Roberto(FILEPATH).run();
     }
 }
