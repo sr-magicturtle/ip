@@ -44,7 +44,9 @@ public class Roberto {
         }
     }
 
-    // Keep the run() method for CLI mode
+    /**
+     * Keep the run() method for CLI mode
+     */
     public void run() {
         ui.showWelcome();
         boolean isFinish = false;
