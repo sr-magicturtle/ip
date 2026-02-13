@@ -1,12 +1,14 @@
 package storage;
 
-import tasks.Task;
-import tasks.ToDo;
 import tasks.Deadline;
 import tasks.Event;
+import tasks.Task;
+import tasks.ToDo;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
