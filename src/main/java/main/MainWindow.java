@@ -27,10 +27,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
     private Image robertoImage = new Image(this.getClass().getResourceAsStream("/images/Roberto.jpg"));
 
+    /**
+     * Shows the first message from Roberto.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        // Show welcome message
         String welcomeMessage = "Hello! I'm ROBERTO\nWhat can I do for you?";
         dialogContainer.getChildren().add(
                 DialogBox.getRobertoDialog(welcomeMessage, robertoImage)

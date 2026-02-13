@@ -1,11 +1,12 @@
 package main;
 
-import parser.Parser;
-import tasks.TaskList;
-import storage.Storage;
-import ui.Ui;
-import exceptions.UnknownCommandException;
 import java.io.IOException;
+
+import exceptions.UnknownCommandException;
+import parser.Parser;
+import storage.Storage;
+import tasks.TaskList;
+import ui.Ui;
 
 /**
  * Represents Roberto Task Manager.
@@ -16,6 +17,10 @@ public class Roberto {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Creates a Roberto object.
+     * @param filePath Indicate filepath to create Roberto.txt.
+     */
     public Roberto(String filePath) {
         storage = new Storage(filePath);
         try {
