@@ -36,6 +36,15 @@ public class Deadline extends Task {
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
+    /**
+     * Find out when the task ends for showing scheduled tasks on a day.
+     * @return End date of task.
+     */
+    @Override
+    public LocalDate getDate() {
+        return LocalDate.parse(endDate, DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
     @Override
     public String toString() {
         return "[D] " + super.toString()

@@ -31,11 +31,25 @@ public class Event extends Task {
                 .trim());
     }
 
-    String dateHandler(String userInputDate) {
+    /**
+     * Standardises the date format.
+     * @param userInputDate Represents user's input.
+     * @return Date in correct format.
+     */
+    public String dateHandler(String userInputDate) {
         LocalDate date = LocalDate.parse(
                 userInputDate,
                 DateTimeFormatter.ofPattern("MMM dd yyyy"));
         return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    }
+
+    /**
+     * Find out when the task starts for showing scheduled tasks on a day.
+     * @return Start date of task.
+     */
+    @Override
+    public LocalDate getDate() {
+        return LocalDate.parse(startDate, DateTimeFormatter.ofPattern("MMM dd yyyy"));
     }
 
     @Override

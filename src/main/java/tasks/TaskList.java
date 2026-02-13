@@ -1,6 +1,8 @@
 package tasks;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 /**
  * Manage list of tasks.
@@ -87,6 +89,15 @@ public class TaskList {
     public void unmark(int index) {
         assert index >= 0 && index < size() : "Invalid index";
         this.tasks.get(index).unmark();
+    }
+
+    public ArrayList<Task> getTasksOnDate(LocalDate date) {
+        return tasks.stream()
+                .filter(task -> {
+                    LocalDate taskDate = task.getDate();
+                    return taskDate != null && taskDate.equals(date);
+                })
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
 }
