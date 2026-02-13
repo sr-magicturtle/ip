@@ -1,6 +1,9 @@
 package parser;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -200,6 +203,7 @@ public enum CommandType {
             }
             return false;
         }
+
         @Override
         public String executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
@@ -214,6 +218,51 @@ public enum CommandType {
                 }
             }
             return response.toString();
+        }
+    },
+    SCHEDULE("schedule") {
+        @Override
+        public boolean execute(String userChoice, TaskList tasks, Ui ui, Storage storage) {
+            try {
+                String dateString = userChoice.substring(9).trim();
+                LocalDate date = LocalDate.parse(dateString);
+                ArrayList<Task> tasksOnDate = tasks.getTasksOnDate(date);
+                ui.showSchedule(date, tasksOnDate);
+            } catch (DateTimeParseException e) {
+                ui.giveError("Invalid date format! Use YYYY-MM-DD (e.g., 2026-02-15)");
+            } catch (StringIndexOutOfBoundsException e) {
+                ui.giveError("Please specify a date: schedule YYYY-MM-DD");
+            }
+            return false;
+        }
+        @Override
+        public String executeForGui(String userChoice, TaskList tasks, Storage storage) {
+            try {
+                String dateStr = userChoice.substring(9).trim();
+                LocalDate targetDate = LocalDate.parse(dateStr);
+
+                ArrayList<Task> scheduledTasks = tasks.getTasksOnDate(targetDate);
+                StringBuilder response = new StringBuilder();
+                response.append("Schedule for ")
+                        .append(targetDate.format(
+                        DateTimeFormatter.ofPattern("MMM dd yyyy"))).append(":\n");
+
+                if (scheduledTasks.isEmpty()) {
+                    response.append("No tasks scheduled for this date!");
+                } else {
+                    for (int i = 0; i < scheduledTasks.size(); i++) {
+                        response.append(i + 1)
+                                .append(". ")
+                                .append(scheduledTasks.get(i))
+                                .append("\n");
+                    }
+                }
+                return response.toString();
+            } catch (DateTimeParseException e) {
+                return "Invalid date format! Use YYYY-MM-DD (e.g., 2026-02-15)";
+            } catch (StringIndexOutOfBoundsException e) {
+                return "Please specify a date: schedule YYYY-MM-DD";
+            }
         }
     };
 

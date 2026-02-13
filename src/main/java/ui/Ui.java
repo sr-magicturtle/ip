@@ -1,10 +1,12 @@
 package ui;
 
-import tasks.TaskList;
-import tasks.Task;
-
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import tasks.Task;
+import tasks.TaskList;
 
 /**
  * Handles user inputs and displays outputs and errors.
@@ -24,12 +26,12 @@ public class Ui {
      * Display welcome message.
      */
     public void showWelcome() {
-        String logo = "__________ ________ __________________________________________________   \n" +
-                "\\______   \\\\_____  \\\\______   \\_   _____/\\______   \\__    ___/\\_____  \\  \n" +
-                " |       _/ /   |   \\|    |  _/|    __)_  |       _/ |    |    /   |   \\ \n" +
-                " |    |   \\/    |    \\    |   \\|        \\ |    |   \\ |    |   /    |    \\\n" +
-                " |____|_  /\\_______  /______  /_______  / |____|_  / |____|   \\_______  /\n" +
-                "        \\/         \\/       \\/        \\/         \\/                   \\/ ";
+        String logo = "__________ ________ __________________________________________________   \n"
+                + "\\______   \\\\_____  \\\\______   \\_   _____/\\______   \\__    ___/\\_____  \\  \n"
+                + " |       _/ /   |   \\|    |  _/|    __)_  |       _/ |    |    /   |   \\ \n"
+                + " |    |   \\/    |    \\    |   \\|        \\ |    |   \\ |    |   /    |    \\\n"
+                + " |____|_  /\\_______  /______  /_______  / |____|_  / |____|   \\_______  /\n"
+                + "        \\/         \\/       \\/        \\/         \\/                   \\/ ";
         System.out.println("Hello! I'm ROBERTO\n"
                 + logo
                 + "\nWhat can I do for you?");
@@ -122,7 +124,25 @@ public class Ui {
     public void showSpecificTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list: ");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i+1) + ". " + tasks.get(i));
+            System.out.println((i + 1) + ". " + tasks.get(i));
         }
     }
+
+    /**
+     * Displays schedule for a specific date.
+     * @param date Target date.
+     * @param tasks Tasks on that date.
+     */
+    public void showSchedule(LocalDate date, ArrayList<Task> tasks) {
+        String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        System.out.println("Schedule for " + formattedDate + ":");
+        if (tasks.isEmpty()) {
+            System.out.println("No tasks scheduled for this date!");
+        } else {
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
+            }
+        }
+    }
+
 }

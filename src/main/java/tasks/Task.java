@@ -1,5 +1,7 @@
 package tasks;
 
+import java.time.LocalDate;
+
 /**
  * A basic †ask with a description and a completed status.
  * Subclasses can extend from this class to have more detailed functionalities.
@@ -39,6 +41,10 @@ public class Task {
      */
     public void unmark() {
         this.isDone = false;
+    }
+
+    public LocalDate getDate() {
+        return null;
     }
 
     /**
