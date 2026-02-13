@@ -24,6 +24,11 @@ public class Deadline extends Task {
                 .substring(3).trim());
     }
 
+    /**
+     * Standardises the date format.
+     * @param userInputDate Represents user's input.
+     * @return Date in correct format.
+     */
     public String dateHandler(String userInputDate) {
         LocalDate date = LocalDate.parse(
                 userInputDate,
