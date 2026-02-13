@@ -13,6 +13,8 @@ public class Task {
      * @param description Represents user's task title.
      */
     public Task(String description) {
+        assert description != null : "Description cannot be null";
+        assert description.trim().isEmpty() : "Description cannot be empty or only have whitespaces";
         this.description = description;
         this.isDone = false;
     }
