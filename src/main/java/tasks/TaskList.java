@@ -22,6 +22,7 @@ public class TaskList {
      * @param tasks Existing tasks to be added to list.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "Tasklist cannot be null";
         this.tasks = tasks;
     }
 
@@ -30,6 +31,7 @@ public class TaskList {
      * @param task Task to be added.
      */
     public void add(Task task) {
+        assert task != null : "Cannot add null task";
         this.tasks.add(task);
     }
 
@@ -39,6 +41,7 @@ public class TaskList {
      * @return Task that was removed.
      */
     public Task delete(int index) {
+        assert index >= 0 && index < size() : "Invalid index";
         return this.tasks.remove(index);
     }
 
@@ -48,6 +51,7 @@ public class TaskList {
      * @return Task at index.
      */
     public Task get(int index) {
+        assert index >= 0 && index < size() : "Invalid index";
         return this.tasks.get(index);
     }
 
@@ -72,6 +76,7 @@ public class TaskList {
      * @param index Task number to be marked.
      */
     public void mark(int index) {
+        assert index >= 0 && index < size() : "Invalid index";
         this.tasks.get(index).mark();
     }
 
@@ -80,6 +85,7 @@ public class TaskList {
      * @param index Task number to be unmarked.
      */
     public void unmark(int index) {
+        assert index >= 0 && index < size() : "Invalid index";
         this.tasks.get(index).unmark();
     }
 
