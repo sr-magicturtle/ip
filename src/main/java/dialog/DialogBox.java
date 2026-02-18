@@ -38,6 +38,26 @@ public class DialogBox extends HBox {
         displayPicture.setImage(img);
     }
 
+    private void setUserStyle() {
+        dialog.setStyle("-fx-background-color: rgba(173, 216, 230, 0.85);"
+                + "-fx-background-radius: 10;"
+                + "-fx-border-color: rgba(0, 0, 0, 0.1);"
+                + "-fx-border-radius: 10;"
+                + "-fx-padding: 8 12 8 12;"
+                + "-fx-text-fill: black;"
+        );
+    }
+
+    private void setRobertoStyle() {
+        dialog.setStyle("-fx-background-color: rgba(255, 255, 255, 0.85);"
+                + "-fx-background-radius: 10;"
+                + "-fx-border-color: rgba(0, 0, 0, 0.1);"
+                + "-fx-border-radius: 10;"
+                + "-fx-padding: 8 12 8 12;"
+                + "-fx-text-fill: black;"
+        );
+    }
+
     /**
      * Flips so that ImageView is on the left and text on the right.
      */
@@ -49,12 +69,17 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.setUserStyle();
+        db.setAlignment(Pos.CENTER_RIGHT);
+        return db;
     }
 
     public static DialogBox getRobertoDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.setRobertoStyle();
+        db.setAlignment(Pos.CENTER_LEFT);
         return db;
     }
 }

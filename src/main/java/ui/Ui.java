@@ -73,7 +73,7 @@ public class Ui {
      * @param list TaskList containing Tasks to be displayed.
      */
     public void giveTaskList(TaskList list) {
-        System.out.println("GET TO WORK!!");
+        System.out.println("GET TO WORK!!\n\n");
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i));
         }
@@ -121,6 +121,10 @@ public class Ui {
         System.out.println("  " + task);
     }
 
+    /**
+     * Displays tasks in the specified ArrayList.
+     * @param tasks ArrayList of tasks.
+     */
     public void showSpecificTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list: ");
         for (int i = 0; i < tasks.size(); i++) {
