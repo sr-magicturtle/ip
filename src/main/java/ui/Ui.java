@@ -121,6 +121,10 @@ public class Ui {
         System.out.println("  " + task);
     }
 
+    /**
+     * Displays tasks in the specified ArrayList.
+     * @param tasks ArrayList of tasks.
+     */
     public void showSpecificTasks(ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list: ");
         for (int i = 0; i < tasks.size(); i++) {
