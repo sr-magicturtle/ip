@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Roberto roberto;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.jpeg"));
-    private Image robertoImage = new Image(this.getClass().getResourceAsStream("/images/Roberto.jpg"));
+    private final Image userImage = loadImage("/images/User.jpeg");
+    private final Image robertoImage = loadImage("/images/Roberto.jpg");
 
     /**
      * Shows the first message from Roberto.
@@ -52,11 +52,23 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        if (input.isEmpty()) {
+            return;
+        }
         String response = roberto.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getRobertoDialog(response, robertoImage)
         );
         userInput.clear();
+    }
+
+    private Image loadImage(String filePath) {
+        var image = new Image(this.getClass().getResourceAsStream(filePath));
+        if (image == null) {
+            System.out.println("Image is not found at " + filePath);
+            return null;
+        }
+        return image;
     }
 }

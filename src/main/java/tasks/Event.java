@@ -16,6 +16,7 @@ public class Event extends Task {
      * Expects date to be entered in <MMM dd yyyy> numerical format.
      * @param userChoice Represents user's input.
      */
+    /*
     public Event(String userChoice) {
         super(userChoice
                 .split("/")[0]
@@ -30,17 +31,46 @@ public class Event extends Task {
                 .substring(3)
                 .trim());
     }
+    */
+
+    public Event(String userChoice) {
+        super(extractDescription(userChoice));
+        String[] parts = userChoice.split("/from", 2);
+        String[] dateParts = parts[1].split("/to", 2);
+        this.startDate = dateHandler(dateParts[0].trim());
+        this.endDate = dateHandler(dateParts[1].trim());
+    }
+
+    private static String extractDescription(String userChoice) {
+        String[] parts = userChoice.split("/from", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new IllegalArgumentException("Event must have a '/from' date!");
+        }
+        if (!parts[1].contains("/to")) {
+            throw new IllegalArgumentException("Event must have a '/to' date!");
+        }
+        String description = parts[0].substring(6).trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Event description cannot be empty!");
+        }
+        return description;
+    }
 
     /**
-     * Standardises the date format.
+     * Format the date.
      * @param userInputDate Represents user's input.
      * @return Date in correct format.
      */
-    public String dateHandler(String userInputDate) {
-        LocalDate date = LocalDate.parse(
-                userInputDate,
-                DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+    public static String dateHandler(String userInputDate) {
+        try {
+            LocalDate date = LocalDate.parse(
+                    userInputDate,
+                    DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    "Invalid date format! Expected: MMM dd yyyy (e.g. Jan 01 2026)");
+        }
     }
 
     /**

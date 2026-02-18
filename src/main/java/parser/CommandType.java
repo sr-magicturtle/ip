@@ -72,9 +72,14 @@ public enum CommandType {
         @Override
         public boolean execute(String userChoice, TaskList tasks, Ui ui, Storage storage)
                 throws IOException {
-            addTaskAndSave(new Deadline(userChoice), tasks, storage, ui);
+            try {
+                addTaskAndSave(new Deadline(userChoice), tasks, storage, ui);
+            } catch (StringIndexOutOfBoundsException e) {
+                ui.giveError("You must add a task after typing deadline!");
+            }
             return false;
         }
+
         @Override
         public String executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
@@ -82,7 +87,7 @@ public enum CommandType {
                 Task newTask = new Deadline(userChoice);
                 return CommandType.addTaskAndSaveAndDisplayOnGui(newTask, tasks, storage, tasks.size());
             } catch (StringIndexOutOfBoundsException e) {
-                return "OOPS!!! You must add a task after typing 'delete'!";
+                return "OOPS!!! You must add a task after typing 'deadline'!";
             }
         }
     },
@@ -115,10 +120,8 @@ public enum CommandType {
                 tasks.mark(taskNumber);
                 storage.save(tasks.getTasks());
                 ui.taskMarked(tasks.get(taskNumber));
-            } catch (IndexOutOfBoundsException e) {
-                ui.giveError("Indexing issue");
-            } catch (IOException e) {
-                ui.giveError("Unable to mark task");
+            } catch (IndexOutOfBoundsException | IOException | NumberFormatException e) {
+                ui.giveError("Invalid task number!");
             }
             return false;
         }
@@ -144,10 +147,8 @@ public enum CommandType {
                 tasks.unmark(taskNumber);
                 storage.save(tasks.getTasks());
                 ui.taskUnmarked(tasks.get(taskNumber));
-            } catch (IndexOutOfBoundsException e) {
-                ui.giveError("Indexing issue");
-            } catch (IOException e) {
-                ui.giveError("Unable to mark task");
+            } catch (IndexOutOfBoundsException | IOException | NumberFormatException e) {
+                ui.giveError("Invalid task number!");
             }
             return false;
         }
@@ -172,8 +173,8 @@ public enum CommandType {
                 Task deletedTask = tasks.delete(taskNumber);
                 storage.save(tasks.getTasks());
                 ui.taskRemoved(deletedTask, tasks.size());
-            } catch (IOException e) {
-                ui.giveError("Unable to delete task");
+            } catch (IndexOutOfBoundsException | IOException | NumberFormatException e) {
+                ui.giveError("Invalid task number!");
             }
             return false;
         }

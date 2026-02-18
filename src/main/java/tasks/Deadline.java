@@ -16,12 +16,21 @@ public class Deadline extends Task {
      * @param userChoice Represents user's input.
      */
     public Deadline(String userChoice) {
-        super(userChoice
-                .split("/")[0]
-                .substring(9));
-        this.endDate = dateHandler(userChoice
-                .split("/")[1]
-                .substring(3).trim());
+        super(extractDescription(userChoice));
+        String[] parts = userChoice.split("/by", 2);
+        if (parts.length < 2 || parts[1].trim().isEmpty()) {
+            throw new IllegalArgumentException("Deadline must have a '/by' date!");
+        }
+        this.endDate = dateHandler(parts[1].trim());
+    }
+
+    private static String extractDescription(String userChoice) {
+        String[] parts = userChoice.split("/by", 2);
+        String description = parts[0].substring(9).trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Deadline description cannot be empty!");
+        }
+        return description;
     }
 
     /**

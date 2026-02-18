@@ -1,16 +1,15 @@
 package storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import tasks.Deadline;
 import tasks.Event;
 import tasks.Task;
 import tasks.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Handles the loading and saving of tasks to a file.
@@ -47,10 +46,12 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
-            Task task = parseLineToTask(line);
-            tasks.add(task);
+            try {
+                tasks.add(parseLineToTask(line)); // your existing parse logic
+            } catch (Exception e) {
+                System.out.println("Skipping corrupted line: " + line);
+            }
         }
-
         return tasks;
     }
 
@@ -92,7 +93,7 @@ public class Storage {
             String startAndEndDates = line.split("\\|")[1];
             String startDate = startAndEndDates.split("-")[0].trim();
             String endDate = startAndEndDates.split("-")[1].trim();
-            String originalInput = "event " + description + "/from " + startDate + "/by " + endDate;
+            String originalInput = "event " + description + "/from " + startDate + "/to " + endDate;
             result = new Event(originalInput);
         } else {
             result = null;
@@ -104,6 +105,12 @@ public class Storage {
         return result;
     }
 
+    /**
+     * Finds tasks containing a specfic keyword.
+     * @param keyword Target word.
+     * @return ArrayList of Tasks with that keyword.
+     * @throws IOException File is null.
+     */
     public ArrayList<Task> findInFile(String keyword) throws IOException {
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         File file = new File(this.filePath);
@@ -115,6 +122,7 @@ public class Storage {
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
+
             if (line.contains(keyword)) {
                 Task newTask = parseLineToTask(line);
                 tasksWithKeyword.add(newTask);
