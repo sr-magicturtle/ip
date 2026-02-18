@@ -24,12 +24,12 @@ public class Parser {
      * @throws IndexOutOfBoundsException Invalid inputs.
      */
     public static boolean parse(String userChoice, TaskList tasks, Ui ui, Storage storage)
-            throws UnknownCommandException, IOException, IndexOutOfBoundsException {
+            throws UnknownCommandException, IOException {
         CommandType command = CommandType.fromUserChoice(userChoice);
         if (command == null) {
-            throw new UnknownCommandException("I dont understand that command!");
+            throw new UnknownCommandException("I don't understand that command!");
         }
-        return command.execute(userChoice, tasks, ui, storage);
+        return command.execute(userChoice, tasks, ui, storage) == CommandResult.EXIT;
     }
 
     /**
