@@ -16,23 +16,6 @@ public class Event extends Task {
      * Expects date to be entered in <MMM dd yyyy> numerical format.
      * @param userChoice Represents user's input.
      */
-    /*
-    public Event(String userChoice) {
-        super(userChoice
-                .split("/")[0]
-                .substring(6));
-        this.startDate = dateHandler(
-                userChoice.split("/")[1]
-                .substring(5)
-                .trim());
-        this.endDate = dateHandler(
-                userChoice
-                .split("/")[2]
-                .substring(3)
-                .trim());
-    }
-    */
-
     public Event(String userChoice) {
         super(extractDescription(userChoice));
         String[] parts = userChoice.split("/from", 2);

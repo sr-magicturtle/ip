@@ -75,9 +75,7 @@ public class Storage {
 
     private Task parseLineToTask(String line) {
         Task result;
-
         boolean isDone = line.contains("[X]");
-
         if (line.contains("[T]")) {
             result = new ToDo("todo " + line.substring(8));
         } else if (line.contains("[D]")) {
@@ -98,7 +96,6 @@ public class Storage {
         } else {
             result = null;
         }
-
         if (isDone) {
             result.mark();
         }
@@ -130,5 +127,4 @@ public class Storage {
         }
         return tasksWithKeyword;
     }
-
 }
