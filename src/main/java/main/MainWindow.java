@@ -33,6 +33,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty());
         String welcomeMessage = "Hello! I'm ROBERTO\nWhat can I do for you?";
         dialogContainer.getChildren().add(
                 DialogBox.getRobertoDialog(welcomeMessage, robertoImage)

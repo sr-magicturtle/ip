@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  * A GUI for Roberto.
  */
 public class Main extends Application {
-    private Roberto roberto = new Roberto("Roberto.txt");
+    private final Roberto roberto = new Roberto("Roberto.txt");
 
     @Override
     public void start(Stage stage) {
@@ -22,6 +22,9 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Roberto Task Manager");
+            stage.setResizable(true);
+            stage.setMinWidth(400.0);
+            stage.setMinHeight(600.0);
             fxmlLoader.<MainWindow>getController().setRoberto(roberto);
             stage.show();
         } catch (IOException e) {

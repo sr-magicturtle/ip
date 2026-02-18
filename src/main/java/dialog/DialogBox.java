@@ -71,6 +71,7 @@ public class DialogBox extends HBox {
     public static DialogBox getUserDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.setUserStyle();
+        db.setAlignment(Pos.CENTER_RIGHT);
         return db;
     }
 
@@ -78,6 +79,7 @@ public class DialogBox extends HBox {
         var db = new DialogBox(text, img);
         db.flip();
         db.setRobertoStyle();
+        db.setAlignment(Pos.CENTER_LEFT);
         return db;
     }
 }
