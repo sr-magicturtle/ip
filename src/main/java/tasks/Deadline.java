@@ -26,6 +26,9 @@ public class Deadline extends Task {
 
     private static String extractDescription(String userChoice) {
         String[] parts = userChoice.split("/by", 2);
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Deadline must have a '/by' date!");
+        }
         String description = parts[0].substring(9).trim();
         if (description.isEmpty()) {
             throw new IllegalArgumentException("Deadline description cannot be empty!");
@@ -33,16 +36,22 @@ public class Deadline extends Task {
         return description;
     }
 
+
     /**
      * Standardises the date format.
      * @param userInputDate Represents user's input.
      * @return Date in correct format.
      */
     public String dateHandler(String userInputDate) {
-        LocalDate date = LocalDate.parse(
-                userInputDate,
-                DateTimeFormatter.ofPattern("MMM dd yyyy"));
-        return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        try {
+            LocalDate date = LocalDate.parse(
+                    userInputDate,
+                    DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            return date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    "Invalid date format! Expected: MMM dd yyyy (e.g. Jan 01 2026)");
+        }
     }
 
     /**

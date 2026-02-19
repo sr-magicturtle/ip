@@ -19,9 +19,39 @@ public class Event extends Task {
     public Event(String userChoice) {
         super(extractDescription(userChoice));
         String[] parts = userChoice.split("/from", 2);
+        if (parts.length < 2 || !parts[1].contains("/to")) {
+            throw new IllegalArgumentException("Invalid event format! Expected: event <desc> /from <MMM dd yyyy> /to <MMM dd yyyy>");
+        }
         String[] dateParts = parts[1].split("/to", 2);
-        this.startDate = dateHandler(dateParts[0].trim());
-        this.endDate = dateHandler(dateParts[1].trim());
+        String rawStartDate = dateParts[0].trim();
+        String rawEndDate = dateParts[1].trim();
+
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+
+        LocalDate startDate;
+        LocalDate endDate;
+
+        try {
+            startDate = LocalDate.parse(rawStartDate, dateFormat);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    "Invalid start date format! Expected: MMM dd yyyy (e.g. Jan 01 2026)");
+        }
+
+        try {
+            endDate = LocalDate.parse(rawEndDate, dateFormat);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                    "Invalid end date format! Expected: MMM dd yyyy (e.g. Jan 01 2026)");
+        }
+
+        if (endDate.isBefore(startDate)) {
+            throw new IllegalArgumentException(
+                    "End date must not be before start date!");
+        }
+
+        this.startDate = startDate.format(dateFormat);
+        this.endDate = endDate.format(dateFormat);
     }
 
     private static String extractDescription(String userChoice) {
