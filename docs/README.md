@@ -137,6 +137,7 @@ Schedule for Feb 19 2026:
 ```
 ---
 ## Command Summary 
+
 | Action               | Command                                                 |
 |----------------------|---------------------------------------------------------|
 | Add to-do task       | todo Go for a run                                       |
