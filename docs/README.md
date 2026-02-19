@@ -13,7 +13,7 @@ With several functionalities like finding specific tasks, and viewing tasks rele
 Roberto aims to give you a seamless, easy-to-use to-do list. 
 
 ## Adding to-do tasks 
-This tracks tasks without any date in mind. 
+Adds tasks without any date in mind. 
 Provide a description of the task.
 
 Example: `todo Go for a run`
@@ -28,7 +28,7 @@ Now you have 6 tasks in the list.
 ```
 
 ## Adding deadline tasks
-This tracks tasks that need to be completed by a certain date.
+Adds tasks that need to be completed by a certain date.
 Provide a description of the task, followed with '/by', then the deadline in 'Mmm dd yyyy' format 
 
 Example: `deadline Finish CS2103T assignment /by Feb 20 2026`
@@ -43,7 +43,7 @@ Now you have 7 tasks in the list.
 ```
 
 ## Adding event tasks
-This tracks tasks that take place between a range of dates.
+Adds tasks that take place between a range of dates.
 Provide a description of the task, followed with '/from', then the start date in 'Mmm dd yyyy' format,
 then the end date in 'Mmm dd yyyy' format. 
 
@@ -59,7 +59,7 @@ Now you have 8 tasks in the list.
 ```
 
 ## View full tasklist
-This shows you the tasks you have on your list, with their task types, whether they are marked, and their dates.
+Displays tasks you have on your list, with their task types, whether they are marked, and their dates.
 
 Example: `list`
 
@@ -76,7 +76,7 @@ Roberto will display your current tasklist.
 ```
 
 ## Mark/Unmark tasks
-This adds/removes an 'X' from the task, either marking it as completed, or unmarking it to show it is uncompleted. 
+Adds/removes an 'X' from the task, either marking it as completed, or unmarking it to show it is uncompleted. 
 Specify the task number you want to mark/unmark.
 
 Example 1: `mark 6`
@@ -98,7 +98,7 @@ OK, I've marked this task as not done yet:
 ```
 
 ## Deleting tasks 
-This removes tasks from the list. Specify the task number you want to delete.
+Removes a task from the list. Specify the task number you want to delete.
 
 Example: `delete 3`
 
@@ -110,29 +110,42 @@ Noted. I've removed this task:
 Now you have 6 tasks in the list.
 ```
 
-## Deleting tasks
-This removes tasks from the list. Specify the task number you want to delete.
+## Finding tasks
+Finds tasks with the specified keyword. 
 
-Example: `delete 3`
+Example: `find laundry`
 
-Roberto will display your current tasklist.
-
-```
-Noted. I've removed this task: 
-[T] [ ] Finish homework
-Now you have 6 tasks in the list.
-```
-
-## Feature XYZ
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+Roberto will display tasks with that keyword.
 
 ```
-expected output
+Here are the matching tasks in your list: 
+1. [D] [ ] Do laundry | Feb 19 2026
 ```
+
+## Finding tasks on a date
+Lists the tasks that fall on a specific date. 
+Date must be provided in YYYY-MM-DD format. 
+
+Example: `schedule 2026-02-19`
+
+Roberto will display tasks that include that date.
+
+```
+Schedule for Feb 19 2026:
+[D] [ ] Do laundry | Feb 19 2026
+[D] [ ] Buy groceries | Feb 19 2026
+```
+---
+## Command Summary 
+| Action               | Command                                                 |
+|----------------------|---------------------------------------------------------|
+| Add to-do task       | todo Go for a run                                       |
+| Add deadline task    | deadline Finish assignment /by Feb 20 2026              |
+| Add event task       | event Coding bootcamp /from Jan 01 2026 /to Jan 30 2026 |
+| View tasklist        | list                                                    |
+| Mark task            | mark 7                                                  |
+| Unmark task          | unmark 5                                                |
+| Delete task          | delete 4                                                |
+| Find keyword in task | find groceries                                          |
+| Find tasks on a date | schedule 2026-12-31                                     |
+
