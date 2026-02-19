@@ -16,7 +16,6 @@ import tasks.TaskList;
 import tasks.ToDo;
 import ui.Ui;
 
-
 /**
  * Represents valid user commands
  */
@@ -45,7 +44,7 @@ public enum CommandType {
             return buildTaskListResponse(tasks);
         }
     },
-    ODO("todo") {
+    TODO("todo") {
         @Override
         public CommandResult execute(String userChoice, TaskList tasks, Ui ui, Storage storage)
                 throws IOException {
