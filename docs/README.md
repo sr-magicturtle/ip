@@ -1,12 +1,129 @@
 # Roberto User Guide
 
-// Update the title above to match the actual product name
+![Screenshot of Roberto Task Manager in action](Ui.png)
 
-// Product screenshot goes here
+Roberto Task Manager provides you with the capabilities of tracking your tasks.
 
-// Product intro goes here
+It allows you to keep track of 3 types of tasks: 
+1. To-do tasks (no specified start and end dates)
+2. Deadline tasks (specified end date)
+3. Event tasks (specified start and end dates)
 
-## Adding deadlines
+With several functionalities like finding specific tasks, and viewing tasks relevant to a specific date,
+Roberto aims to give you a seamless, easy-to-use to-do list. 
+
+## Adding to-do tasks 
+This tracks tasks without any date in mind. 
+Provide a description of the task.
+
+Example: `todo Go for a run`
+
+Roberto will repeat your task to you to ensure it has been tracked, 
+as well as the total number of tasks you have. 
+
+```
+You have added this task:
+[T] [] Go for a run 
+Now you have 6 tasks in the list.
+```
+
+## Adding deadline tasks
+This tracks tasks that need to be completed by a certain date.
+Provide a description of the task, followed with '/by', then the deadline in 'Mmm dd yyyy' format 
+
+Example: `deadline Finish CS2103T assignment /by Feb 20 2026`
+
+Roberto will repeat your task to you to ensure it has been tracked,
+as well as the total number of tasks you have.
+
+```
+You have added this task:
+[D] [] Finish CS2103T assignment | Feb 20 2026
+Now you have 7 tasks in the list.
+```
+
+## Adding event tasks
+This tracks tasks that take place between a range of dates.
+Provide a description of the task, followed with '/from', then the start date in 'Mmm dd yyyy' format,
+then the end date in 'Mmm dd yyyy' format. 
+
+Example: `event Coding bootcamp /from Jan 01 2026 /to Jan 30 2026`
+
+Roberto will repeat your task to you to ensure it has been tracked,
+as well as the total number of tasks you have.
+
+```
+You have added this task:
+[E] [] Coding bootcamp | Jan 01 2026 - Jan 30 2026
+Now you have 8 tasks in the list.
+```
+
+## View full tasklist
+This shows you the tasks you have on your list, with their task types, whether they are marked, and their dates.
+
+Example: `list`
+
+Roberto will display your current tasklist.
+
+```
+[D] [ ] Do laundry | Feb 19 2026
+[D] [ ] Buy groceries | Feb 19 2026
+[T] [X] Finish homework
+[E] [ ] Japan trip | Mar 10 2026 - Mar 20 2026
+[T] [ ] Go for a run
+[D] [ ] Finish CS2103T assignment | Feb 20 2026
+[E] [ ] Coding bootcamp | Jan 01 2026 - Jan 30 2026
+```
+
+## Mark/Unmark tasks
+This adds/removes an 'X' from the task, either marking it as completed, or unmarking it to show it is uncompleted. 
+Specify the task number you want to mark/unmark.
+
+Example 1: `mark 6`
+
+Roberto will add an 'X' to the 6th task in the list. 
+
+```
+Nice! I've marked this task as done:
+[D] [X] Finish CS2103T assignment | Feb 20 2026
+```
+
+Example 2: `unmark 3`
+
+Roberto will remove the 'X' from the 3rd task in the list.
+
+```
+OK, I've marked this task as not done yet:
+[T] [ ] Finish homework
+```
+
+## Deleting tasks 
+This removes tasks from the list. Specify the task number you want to delete.
+
+Example: `delete 3`
+
+Roberto will display your current tasklist.
+
+```
+Noted. I've removed this task: 
+[T] [ ] Finish homework
+Now you have 6 tasks in the list.
+```
+
+## Deleting tasks
+This removes tasks from the list. Specify the task number you want to delete.
+
+Example: `delete 3`
+
+Roberto will display your current tasklist.
+
+```
+Noted. I've removed this task: 
+[T] [ ] Finish homework
+Now you have 6 tasks in the list.
+```
+
+## Feature XYZ
 
 // Describe the action and its outcome.
 
@@ -19,12 +136,3 @@ Example: `keyword (optional arguments)`
 ```
 expected output
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
