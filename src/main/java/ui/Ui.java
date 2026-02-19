@@ -73,6 +73,10 @@ public class Ui {
      * @param list TaskList containing Tasks to be displayed.
      */
     public void giveTaskList(TaskList list) {
+        if (list.size() == 0) {
+            System.out.println("There are no tasks in your list!");
+            return;
+        }
         System.out.println("GET TO WORK!!\n\n");
         for (int i = 0; i < list.size(); i++) {
             System.out.println((i + 1) + ". " + list.get(i));

@@ -309,6 +309,9 @@ public enum CommandType {
     }
 
     private static String buildTaskListResponse(TaskList tasks) {
+        if (tasks.size() == 0) {
+            return "There are no tasks in your list!";
+        }
         StringBuilder sb = new StringBuilder("GET TO WORK!!\n");
         for (int i = 0; i < tasks.size(); i++) {
             sb.append(i + 1).append(". ").append(tasks.get(i)).append("\n");
