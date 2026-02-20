@@ -5,5 +5,10 @@ package parser;
  * Based on the result derived.
  */
 public enum CommandResult {
-    EXIT, CONTINUE
+    EXIT,
+    CONTINUE;
+
+    public boolean shouldExit() {
+        return this == EXIT;
+    }
 }

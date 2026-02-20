@@ -1,6 +1,8 @@
 package main;
 
 import dialog.DialogBox;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  * Controller for the main GUI.
@@ -51,16 +54,25 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
-        String input = userInput.getText();
-        if (input.isEmpty()) {
-            return;
-        }
+        String input = userInput.getText().trim();
+        if (input.isEmpty()) return;
+
         String response = roberto.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getRobertoDialog(response, robertoImage)
-        );
+
+        if (userImage != null && robertoImage != null) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getRobertoDialog(response, robertoImage)
+            );
+        }
+
         userInput.clear();
+
+        if (roberto.getLastResult().shouldExit()) {
+            PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+            delay.setOnFinished(event -> Platform.exit());
+            delay.play();
+        }
     }
 
     private Image loadImage(String filePath) {

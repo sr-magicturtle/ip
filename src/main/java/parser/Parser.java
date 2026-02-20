@@ -11,7 +11,7 @@ import ui.Ui;
  * Handles execution of user's input.
  */
 public class Parser {
-
+    private static CommandResult lastResult = CommandResult.CONTINUE;
     /**
      * Process user's command for CLI.
      * @param userChoice User input.
@@ -23,13 +23,13 @@ public class Parser {
      * @throws IOException Invalid inputs.
      * @throws IndexOutOfBoundsException Invalid inputs.
      */
-    public static boolean parse(String userChoice, TaskList tasks, Ui ui, Storage storage)
+    public static CommandResult parse(String userChoice, TaskList tasks, Ui ui, Storage storage)
             throws UnknownCommandException, IOException {
         CommandType command = CommandType.fromUserChoice(userChoice);
         if (command == null) {
             throw new UnknownCommandException("I don't understand that command!");
         }
-        return command.execute(userChoice, tasks, ui, storage) == CommandResult.EXIT;
+        return command.execute(userChoice, tasks, ui, storage);
     }
 
     /**
@@ -47,6 +47,11 @@ public class Parser {
         if (command == null) {
             throw new UnknownCommandException("I don't understand that command!");
         }
-        return command.executeForGui(userChoice, tasks, storage);
+        lastResult = command.executeForGui(userChoice, tasks, storage).commandResult();
+        return command.executeForGui(userChoice, tasks, storage).message();
+    }
+
+    public static CommandResult getLastCommandResult() {
+        return lastResult;
     }
 }

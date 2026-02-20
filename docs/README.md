@@ -149,5 +149,3 @@ Schedule for Feb 19 2026:
 | Delete task          | delete 4                                                |
 | Find keyword in task | find groceries                                          |
 | Find tasks on a date | schedule 2026-12-31                                     |
-
-

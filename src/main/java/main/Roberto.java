@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 
 import exceptions.UnknownCommandException;
+import parser.CommandResult;
 import parser.Parser;
 import storage.Storage;
 import tasks.TaskList;
@@ -16,6 +17,8 @@ public class Roberto {
     private Ui ui = new Ui();
     private TaskList tasks;
     private Storage storage;
+    private CommandResult lastResult = CommandResult.CONTINUE;
+
 
     /**
      * Creates a Roberto object.
@@ -36,12 +39,24 @@ public class Roberto {
      */
     public String getResponse(String input) {
         try {
-            return Parser.parseForGui(input, tasks, storage);
+            String response = Parser.parseForGui(input, tasks, storage);
+            lastResult = Parser.getLastCommandResult(); // explained in Step 3
+            return response;
         } catch (UnknownCommandException e) {
+            lastResult = CommandResult.CONTINUE;
             return "OOPS!!! " + e.getMessage();
         } catch (IOException e) {
+            lastResult = CommandResult.CONTINUE;
             return "Unable to save to file: " + e.getMessage();
         }
+    }
+
+    /**
+     * Get the Command to CONTINUE or EXIT the program
+     * @return CONTINUE or EXIT
+     */
+    public CommandResult getLastResult() {
+        return lastResult;
     }
 
     /**
@@ -49,11 +64,11 @@ public class Roberto {
      */
     public void run() {
         ui.showWelcome();
-        boolean isFinish = false;
-        while (!isFinish) {
+        CommandResult result = CommandResult.CONTINUE;
+        while (!result.shouldExit()) {
             try {
                 String userChoice = ui.readCommand();
-                isFinish = Parser.parse(userChoice, tasks, ui, storage);
+                result = Parser.parse(userChoice, tasks, ui, storage);
             } catch (UnknownCommandException e) {
                 ui.giveError(e.getMessage());
             } catch (IOException e) {

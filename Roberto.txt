@@ -4,3 +4,4 @@
 [T] [ ] Go for a run
 [D] [X] Finish CS2103T assignment | Feb 20 2026
 [E] [ ] Coding bootcamp | Jan 01 2026 - Jan 30 2026
+[T] [ ] Go walk

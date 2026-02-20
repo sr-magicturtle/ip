@@ -28,8 +28,8 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage) {
-            return "NOOOOO DON'T GO.... okay see u soon!";
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage) {
+            return GuiResponse.exit("NOOOOO DON'T GO.... okay see u soon!");
         }
     },
     LIST("list") {
@@ -40,8 +40,8 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage) {
-            return buildTaskListResponse(tasks);
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage) {
+            return GuiResponse.of(buildTaskListResponse(tasks));
         }
     },
     TODO("todo") {
@@ -57,16 +57,15 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage)
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
             try {
-                return addTaskAndSaveForGui(new ToDo(userChoice), tasks, storage);
+                return GuiResponse.of(addTaskAndSaveForGui(new ToDo(userChoice), tasks, storage));
             } catch (IllegalArgumentException e) {
-                return "OOPS!!! " + e.getMessage();
+                return GuiResponse.of("OOPS!!! " + e.getMessage());
             }
         }
     },
-
     DEADLINE("deadline") {
         @Override
         public CommandResult execute(String userChoice, TaskList tasks, Ui ui, Storage storage)
@@ -80,16 +79,15 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage)
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
             try {
-                return addTaskAndSaveForGui(new Deadline(userChoice), tasks, storage);
+                return GuiResponse.of(addTaskAndSaveForGui(new Deadline(userChoice), tasks, storage));
             } catch (IllegalArgumentException e) {
-                return "OOPS!!! " + e.getMessage();
+                return GuiResponse.of("OOPS!!! " + e.getMessage());
             }
         }
     },
-
     EVENT("event") {
         @Override
         public CommandResult execute(String userChoice, TaskList tasks, Ui ui, Storage storage)
@@ -103,16 +101,15 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage)
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
             try {
-                return addTaskAndSaveForGui(new Event(userChoice), tasks, storage);
+                return GuiResponse.of(addTaskAndSaveForGui(new Event(userChoice), tasks, storage));
             } catch (IllegalArgumentException e) {
-                return "OOPS!!! " + e.getMessage();
+                return GuiResponse.of("OOPS!!! " + e.getMessage());
             }
         }
     },
-
     MARK("mark") {
         @Override
         public CommandResult execute(String userChoice, TaskList tasks, Ui ui, Storage storage) {
@@ -127,18 +124,17 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage)
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
             try {
                 int index = parseTaskIndex(userChoice, 4);
                 markAndSave(index, tasks, storage);
-                return "Nice! I've marked this task as done:\n  " + tasks.get(index);
+                return GuiResponse.of("Nice! I've marked this task as done:\n  " + tasks.get(index));
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                return "Invalid task number!";
+                return GuiResponse.of("Invalid task number!");
             }
         }
     },
-
     UNMARK("unmark") {
         @Override
         public CommandResult execute(String userChoice, TaskList tasks, Ui ui, Storage storage) {
@@ -153,14 +149,14 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage)
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
             try {
                 int index = parseTaskIndex(userChoice, 6);
                 unmarkAndSave(index, tasks, storage);
-                return "OK, I've marked this task as not done yet:\n  " + tasks.get(index);
+                return GuiResponse.of("OK, I've marked this task as not done yet:\n  " + tasks.get(index));
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                return "Invalid task number!";
+                return GuiResponse.of("Invalid task number!");
             }
         }
     },
@@ -179,14 +175,14 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage)
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
             try {
                 int index = parseTaskIndex(userChoice, 6);
                 Task deleted = deleteAndSave(index, tasks, storage);
-                return buildDeleteResponse(deleted, tasks.size());
+                return GuiResponse.of(buildDeleteResponse(deleted, tasks.size()));
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                return "Invalid task number!";
+                return GuiResponse.of("Invalid task number!");
             }
         }
     },
@@ -204,11 +200,14 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage)
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
                 throws IOException {
             String keyword = extractKeyword(userChoice).toLowerCase();
+            if (keyword.isEmpty()) {
+                return GuiResponse.of("Please provide a keyword: find <keyword>");
+            }
             ArrayList<Task> matches = storage.findInFile(keyword);
-            return buildFindResponse(matches);
+            return GuiResponse.of(buildFindResponse(matches));
         }
     },
 
@@ -227,14 +226,14 @@ public enum CommandType {
         }
 
         @Override
-        public String executeForGui(String userChoice, TaskList tasks, Storage storage) {
+        public GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage) {
             try {
                 LocalDate date = parseDate(userChoice);
-                return buildScheduleResponse(date, tasks.getTasksOnDate(date));
+                return GuiResponse.of(buildScheduleResponse(date, tasks.getTasksOnDate(date)));
             } catch (DateTimeParseException e) {
-                return "Invalid date format! Use YYYY-MM-DD (e.g., 2026-02-15)";
+                return GuiResponse.of("Invalid date format! Use YYYY-MM-DD (e.g., 2026-02-15)");
             } catch (StringIndexOutOfBoundsException e) {
-                return "Please specify a date: schedule YYYY-MM-DD";
+                return GuiResponse.of("Please specify a date: schedule YYYY-MM-DD");
             }
         }
     };
@@ -247,10 +246,14 @@ public enum CommandType {
         this.keyword = keyword;
     }
 
+    public String getKeyword() {
+        return keyword;
+    }
+
     public abstract CommandResult execute(String userChoice, TaskList tasks, Ui ui, Storage storage)
             throws UnknownCommandException, IOException, IndexOutOfBoundsException;
 
-    public abstract String executeForGui(String userChoice, TaskList tasks, Storage storage)
+    public abstract GuiResponse executeForGui(String userChoice, TaskList tasks, Storage storage)
             throws UnknownCommandException, IOException, IndexOutOfBoundsException;
 
     /**
