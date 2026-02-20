@@ -1,8 +1,6 @@
 # Roberto User Guide
 
-![Screenshot of Roberto Task Manager in action](Ui.png)
-
-Roberto Task Manager provides you with the capabilities of tracking your tasks.
+**Roberto** is a task manager which provides you with the capabilities of tracking your tasks.
 
 It allows you to keep track of 3 types of tasks: 
 1. To-do tasks (no specified start and end dates)
@@ -10,12 +8,15 @@ It allows you to keep track of 3 types of tasks:
 3. Event tasks (specified start and end dates)
 
 With several functionalities like finding specific tasks, and viewing tasks relevant to a specific date,
-Roberto aims to give you a seamless, easy-to-use to-do list. 
+Roberto aims to give you a seamless, easy-to-use to-do list.
+
+![Screenshot of Roberto Task Manager in action](Ui.png)
 
 ## Adding to-do tasks 
 Adds tasks without any date in mind. 
 Provide a description of the task.
 
+Format: `todo <task>`  
 Example: `todo Go for a run`
 
 Roberto will repeat your task to you to ensure it has been tracked, 
@@ -31,6 +32,7 @@ Now you have 6 tasks in the list.
 Adds tasks that need to be completed by a certain date.
 Provide a description of the task, followed with '/by', then the deadline in 'Mmm dd yyyy' format 
 
+Format: `deadline <task> /by <Mmm DD YYYY>`  
 Example: `deadline Finish CS2103T assignment /by Feb 20 2026`
 
 Roberto will repeat your task to you to ensure it has been tracked,
@@ -47,6 +49,7 @@ Adds tasks that take place between a range of dates.
 Provide a description of the task, followed with '/from', then the start date in 'Mmm dd yyyy' format,
 then the end date in 'Mmm dd yyyy' format. 
 
+Format: `event <task> /from <Mmm DD YYYY> /to <Mmm DD YYYY>`  
 Example: `event Coding bootcamp /from Jan 01 2026 /to Jan 30 2026`
 
 Roberto will repeat your task to you to ensure it has been tracked,
@@ -61,7 +64,7 @@ Now you have 8 tasks in the list.
 ## View full tasklist
 Displays tasks you have on your list, with their task types, whether they are marked, and their dates.
 
-Example: `list`
+Format: `list`
 
 Roberto will display your current tasklist.
 
@@ -79,6 +82,7 @@ Roberto will display your current tasklist.
 Adds/removes an 'X' from the task, either marking it as completed, or unmarking it to show it is uncompleted. 
 Specify the task number you want to mark/unmark.
 
+Format: `mark <task number>`  
 Example 1: `mark 6`
 
 Roberto will add an 'X' to the 6th task in the list. 
@@ -88,6 +92,7 @@ Nice! I've marked this task as done:
 [D] [X] Finish CS2103T assignment | Feb 20 2026
 ```
 
+Format: `unmark <task number>`  
 Example 2: `unmark 3`
 
 Roberto will remove the 'X' from the 3rd task in the list.
@@ -100,6 +105,7 @@ OK, I've marked this task as not done yet:
 ## Deleting tasks 
 Removes a task from the list. Specify the task number you want to delete.
 
+Format: `delete <task number>`  
 Example: `delete 3`
 
 Roberto will display your current tasklist.
@@ -113,6 +119,7 @@ Now you have 6 tasks in the list.
 ## Finding tasks
 Finds tasks with the specified keyword. 
 
+Format: `find <keyword>`  
 Example: `find laundry`
 
 Roberto will display tasks with that keyword.
@@ -126,6 +133,7 @@ Here are the matching tasks in your list:
 Lists the tasks that fall on a specific date. 
 Date must be provided in YYYY-MM-DD format. 
 
+Format: `schedule <YYYY-MM-DD>`  
 Example: `schedule 2026-02-19`
 
 Roberto will display tasks that include that date.
@@ -138,14 +146,16 @@ Schedule for Feb 19 2026:
 ---
 ## Command Summary 
 
-| Action               | Command                                                 |
-|----------------------|---------------------------------------------------------|
-| Add to-do task       | todo Go for a run                                       |
-| Add deadline task    | deadline Finish assignment /by Feb 20 2026              |
-| Add event task       | event Coding bootcamp /from Jan 01 2026 /to Jan 30 2026 |
-| View tasklist        | list                                                    |
-| Mark task            | mark 7                                                  |
-| Unmark task          | unmark 5                                                |
-| Delete task          | delete 4                                                |
-| Find keyword in task | find groceries                                          |
-| Find tasks on a date | schedule 2026-12-31                                     |
+| Action            | Command |
+|-------------------|-------------|
+| Add to-do task    | todo Go for a run |
+| Add deadline task | Add deadline task |
+| Add event task    | event Coding bootcamp /from Jan 01 2026 /to Jan 30 2026 | 
+| View tasklist     | list |
+| Mark task         | mark 7 |
+| Unmark task       | unmark 5 |
+| Delete task       | delete 4 |
+| Find keyword in task | find groceries | 
+| Find tasks on a date | schedule 2026-12-31 |
+
+---
