@@ -47,8 +47,9 @@ public class Parser {
         if (command == null) {
             throw new UnknownCommandException("I don't understand that command!");
         }
-        lastResult = command.executeForGui(userChoice, tasks, storage).commandResult();
-        return command.executeForGui(userChoice, tasks, storage).message();
+        GuiResponse response = command.executeForGui(userChoice, tasks, storage);
+        lastResult = response.commandResult();
+        return response.message();
     }
 
     public static CommandResult getLastCommandResult() {
