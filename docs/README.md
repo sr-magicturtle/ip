@@ -12,6 +12,15 @@ Roberto aims to give you a seamless, easy-to-use to-do list.
 
 ![Screenshot of Roberto Task Manager in action](Ui.png)
 
+## Quick start
+### Pre-reqs
+* Have Java 17 installed. 
+
+### Running the file
+* Install the JAR file from [releases tab](https://github.com/sr-magicturtle/ip/releases).
+* Navigate to the folder containing the JAR file using your terminal.
+* Run the following command: `java -jar Roberto.jar`
+
 ## Adding to-do tasks 
 Adds tasks without any date in mind. 
 Provide a description of the task.
