@@ -14,6 +14,16 @@ public class ToDo extends Task {
         super(userChoice.substring(5));
     }
 
+    private static String extractDescription(String userChoice) {
+        String description = userChoice.substring(5).trim(); // strip "todo "
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "ToDo description cannot be empty! Usage: todo <description>"
+            );
+        }
+        return description;
+    }
+
     @Override
     public String toString() {
         return "[T] " + super.toString();

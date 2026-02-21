@@ -22,6 +22,7 @@ Roberto aims to give you a seamless, easy-to-use to-do list.
 * Run the following command: `java -jar Roberto.jar`
 
 ## Adding to-do tasks 
+
 Adds tasks without any date in mind. 
 Provide a description of the task.
 

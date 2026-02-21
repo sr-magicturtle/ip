@@ -61,8 +61,8 @@ public enum CommandType {
                 throws IOException {
             try {
                 return GuiResponse.of(addTaskAndSaveForGui(new ToDo(userChoice), tasks, storage));
-            } catch (IllegalArgumentException e) {
-                return GuiResponse.of("OOPS!!! " + e.getMessage());
+            } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
+                return GuiResponse.of("OOPS!!! " + "Please enter a valid task description");
             }
         }
     },
@@ -83,7 +83,7 @@ public enum CommandType {
                 throws IOException {
             try {
                 return GuiResponse.of(addTaskAndSaveForGui(new Deadline(userChoice), tasks, storage));
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | StringIndexOutOfBoundsException e) {
                 return GuiResponse.of("OOPS!!! " + e.getMessage());
             }
         }

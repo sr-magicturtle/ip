@@ -20,7 +20,8 @@ public class Event extends Task {
         super(extractDescription(userChoice));
         String[] parts = userChoice.split("/from", 2);
         if (parts.length < 2 || !parts[1].contains("/to")) {
-            throw new IllegalArgumentException("Invalid event format! Expected: event <desc> /from <MMM dd yyyy> /to <MMM dd yyyy>");
+            throw new IllegalArgumentException("Invalid event format! Expected: "
+                    + "event <desc> /from <MMM dd yyyy> /to <MMM dd yyyy>");
         }
         String[] dateParts = parts[1].split("/to", 2);
         String rawStartDate = dateParts[0].trim();
