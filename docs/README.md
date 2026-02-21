@@ -1,13 +1,13 @@
 # Roberto User Guide
 
-**Roberto** is a task manager which provides you with the capabilities of tracking your tasks.
+**Roberto** is a task manager which provides you with the capabilities of efficiently tracking your tasks.
 
-It allows you to keep track of 3 types of tasks: 
+It allows you to track 3 types of tasks: 
 1. To-do tasks (no specified start and end dates)
 2. Deadline tasks (specified end date)
 3. Event tasks (specified start and end dates)
 
-With several functionalities like finding specific tasks, and viewing tasks relevant to a specific date,
+With functionalities like finding specific tasks, and viewing tasks on a specific date,
 Roberto aims to give you a seamless, easy-to-use to-do list.
 
 ![Screenshot of Roberto Task Manager in action](Ui.png)

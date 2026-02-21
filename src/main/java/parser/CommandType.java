@@ -220,9 +220,9 @@ public enum CommandType {
                 LocalDate date = parseDate(userChoice);
                 ui.showSchedule(date, tasks.getTasksOnDate(date));
             } catch (DateTimeParseException e) {
-                ui.giveError("Invalid date format! Use YYYY-MM-DD (e.g., 2026-02-15)");
+                ui.giveError("Invalid date format! Use MMM-dd-yyyy (e.g., Jan 01 2026)");
             } catch (StringIndexOutOfBoundsException e) {
-                ui.giveError("Please specify a date: schedule YYYY-MM-DD");
+                ui.giveError("Please specify a date: schedule MMM-dd-yyyy");
             }
             return CommandResult.CONTINUE;
         }
@@ -233,9 +233,9 @@ public enum CommandType {
                 LocalDate date = parseDate(userChoice);
                 return GuiResponse.of(buildScheduleResponse(date, tasks.getTasksOnDate(date)));
             } catch (DateTimeParseException e) {
-                return GuiResponse.of("Invalid date format! Use YYYY-MM-DD (e.g., 2026-02-15)");
+                return GuiResponse.of("Invalid date format! Use MMM-dd-yyyy (e.g., Jan 01 2026)");
             } catch (StringIndexOutOfBoundsException e) {
-                return GuiResponse.of("Please specify a date: schedule YYYY-MM-DD");
+                return GuiResponse.of("Please specify a date: schedule MMM-dd-yyyy");
             }
         }
     };
@@ -367,6 +367,7 @@ public enum CommandType {
     }
 
     private static LocalDate parseDate(String userChoice) {
-        return LocalDate.parse(userChoice.substring(SCHEDULE_MESSAGE_PREFIX).trim());
+        DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        return LocalDate.parse(userChoice.substring(SCHEDULE_MESSAGE_PREFIX).trim(), dateFormat);
     }
 }

@@ -2,6 +2,6 @@
 [D] [ ] buy groceries | Feb 19 2026
 [E] [ ] Japan trip | Mar 10 2026 - Mar 20 2026
 [D] [X] Finish CS2103T assignment | Feb 20 2026
-[E] [ ] Coding bootcamp | Jan 01 2026 - Jan 30 2026
 [T] [ ] Go walk
 [T] [ ] Go for a run
+[E] [ ] Coding bootcamp | Jan 01 2026 - Jan 30 2026
