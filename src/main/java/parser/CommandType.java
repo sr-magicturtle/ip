@@ -195,6 +195,8 @@ public enum CommandType {
                 ui.showSpecificTasks(storage.findInFile(keyword));
             } catch (IOException e) {
                 ui.giveError("Unable to find keyword in file");
+            } catch (IndexOutOfBoundsException e) {
+                ui.giveError("Please provide a task number!");
             }
             return CommandResult.CONTINUE;
         }
@@ -238,7 +240,7 @@ public enum CommandType {
         }
     };
 
-    private static final int FIND_MESSAGE_PREFIX = 5;
+    private static final int FIND_MESSAGE_PREFIX = 4;
     private static final int SCHEDULE_MESSAGE_PREFIX = 9;
     private final String keyword;
 
